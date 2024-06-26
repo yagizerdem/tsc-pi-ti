@@ -1,5 +1,5 @@
-import { getBody } from "./sd";
-import { gate, gateWithSpinner } from "./template";
+import { getBody, getScreen } from "./sd";
+import { gate, gateWithSpinner, table } from "./template";
 
 function printGate() {
   const body = getBody();
@@ -13,4 +13,13 @@ function printGateWithSpinner() {
   const body = getBody();
   body.innerHTML = gateWithSpinner;
 }
-export { printGate, clearBody, printGateWithSpinner };
+function printTable() {
+  const body = getBody();
+  body.innerHTML = table;
+}
+function pushChat(message: String) {
+  const wrapper = `<div class="message">${message}</div>`;
+  const screen = getScreen();
+  screen.innerHTML += wrapper;
+}
+export { printGate, clearBody, printGateWithSpinner, printTable, pushChat };

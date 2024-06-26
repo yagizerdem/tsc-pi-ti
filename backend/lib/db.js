@@ -1,7 +1,3 @@
-const {
-  activateMatchMaing,
-  clearMatchMaking,
-} = require("../engine/matchMaking");
 const { SD } = require("./SD");
 class DB {
   constructor() {
@@ -11,6 +7,15 @@ class DB {
   }
   getAllRooms() {
     return this.allRooms;
+  }
+  getRoomById(roomid) {
+    return this.allRooms[roomid];
+  }
+  addRoom(newRoom) {
+    this.allRooms[newRoom.roomid] = newRoom;
+  }
+  delteRoom(roomid) {
+    delete this.allRooms[roomid];
   }
   getAllPlayers() {
     return this.allPlayers;
@@ -32,15 +37,13 @@ class DB {
   }
   addNewSocketToWaitRoom(socketid) {
     this.waitRoom.push(socketid);
-    if (this.waitRoom.length >= 2) {
-      activateMatchMaing();
-    }
   }
   removeSocketFromWaitRoom(socketid) {
     this.waitRoom = this.waitRoom.filter((item) => item != socketid);
-    if (this.waitRoom.length < 2) {
-      clearMatchMaking();
-    }
+  }
+  shiftSocketFromWaitRoom() {
+    const socketid = this.waitRoom.shift();
+    return socketid;
   }
 }
 
